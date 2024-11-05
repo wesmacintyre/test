@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cha1epwoc5whk"]
+
+[ext_resource type="Script" path="res://bullet.gd" id="1_oasya"]
+[ext_resource type="Texture2D" uid="uid://befvnm3vu5lkj" path="res://dodge_the_creeps_2d_assets/art/bullet.png" id="2_itp8k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u8f5u"]
+radius = 12.1655
+
+[node name="Bullet" type="Area2D"]
+rotation = -1.5708
+scale = Vector2(0.001, 0.001)
+script = ExtResource("1_oasya")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(20, 20)
+shape = SubResource("CircleShape2D_u8f5u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.075)
+texture = ExtResource("2_itp8k")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
