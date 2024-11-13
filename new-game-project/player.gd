@@ -4,6 +4,7 @@ signal hit
 @export var Bullet : PackedScene
 
 var screen_size  # size of the game window
+var facing_direction = Vector2.UP 
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
@@ -18,6 +19,7 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_pressed("move_left"):
 		velocity.x -= 1
+
 		
 	if Input.is_action_pressed("move_down"):
 		velocity.y += 1
@@ -28,9 +30,10 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		shoot()
 		
-		
 	if velocity.length() > 0:
+		facing_direction = velocity.normalized()
 		velocity = velocity.normalized() * speed
+		$BulletSpawn.rotation = facing_direction.angle()
 		$AnimatedSprite2D.play() # The $ is shortahnd for the function get_node()
 	else:
 		$AnimatedSprite2D.stop()
@@ -42,7 +45,7 @@ func _process(delta: float) -> void:
 		$AnimatedSprite2D.animation = "walk"
 		$AnimatedSprite2D.flip_v = false
 		# See the note below about the following boolean assignment.
-		$AnimatedSprite2D.flip_h = velocity.x < 0
+		$AnimatedSprite2D.flip_h = velocity.x < 0	
 	elif velocity.y != 0:
 		$AnimatedSprite2D.animation = "up"
 		$AnimatedSprite2D.flip_v = velocity.y > 0
@@ -61,5 +64,5 @@ func start(pos):
 	
 func shoot():
 	var b = Bullet.instantiate()
-	add_child(b)
-	b.transform = $BulletSpawn.transform
+	owner.add_child(b)
+	b.transform = $BulletSpawn.global_transform

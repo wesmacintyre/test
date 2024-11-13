@@ -2,11 +2,8 @@ extends Node
 @export var mob_scene: PackedScene
 var score
 
-
 func _ready() -> void:
 	new_game()
-
-
 
 func _process(delta: float) -> void:
 	print(score)
