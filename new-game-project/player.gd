@@ -1,6 +1,6 @@
 extends Area2D
 signal hit
-@export var speed = 500 # how fast the player moves, which is pixels/sec
+@export var speed = 400 # how fast the player moves, which is pixels/sec
 @export var Bullet : PackedScene
 
 var screen_size  # size of the game window
