@@ -2,6 +2,7 @@ extends Area2D
 signal hit
 @export var speed = 400 # how fast the player moves, which is pixels/sec
 @export var Bullet : PackedScene
+@export var Fireball: PackedScene
 
 var screen_size  # size of the game window
 var facing_direction = Vector2.UP 
@@ -30,10 +31,14 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		shoot()
 		
+	if Input.is_action_just_pressed("shoot_fireball"):
+		shoot_fireball()
+		
 	if velocity.length() > 0:
 		facing_direction = velocity.normalized()
 		velocity = velocity.normalized() * speed
 		$BulletSpawn.rotation = facing_direction.angle()
+		$FireballSpawn.rotation = facing_direction.angle()
 		$AnimatedSprite2D.play() # The $ is shortahnd for the function get_node()
 	else:
 		$AnimatedSprite2D.stop()
@@ -66,3 +71,8 @@ func shoot():
 	var b = Bullet.instantiate()
 	owner.add_child(b)
 	b.transform = $BulletSpawn.global_transform
+
+func shoot_fireball():
+	var f = Fireball.instantiate()
+	owner.add_child(f)
+	f.transform = $FireballSpawn.global_transform
