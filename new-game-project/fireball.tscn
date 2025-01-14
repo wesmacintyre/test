@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cd4xs1qpj77n4"]
+
+[ext_resource type="Texture2D" uid="uid://cg1gp21dv8ju1" path="res://dodge_the_creeps_2d_assets/art/fireball.png" id="1_584uo"]
+[ext_resource type="Script" path="res://fireball.gd" id="1_qi1g1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_106dc"]
+
+[node name="Fireball" type="Area2D"]
+position = Vector2(-1, -1)
+script = ExtResource("1_qi1g1")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_106dc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3, 132)
+scale = Vector2(5, 5)
+texture = ExtResource("1_584uo")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
